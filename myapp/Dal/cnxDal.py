@@ -11,7 +11,6 @@ class Database:
                     user='root',
                     password='',
                     host='localhost',
-                    port='3306',
                     database='db_bank'
                 )
                 print('Connection Ok')

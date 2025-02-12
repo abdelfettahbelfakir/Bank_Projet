@@ -12,5 +12,5 @@ class UserManage:
     def auth(self,login:str,password:str)->User|None:
         return self.userDao.auth(login,password)    
 
-    def register(self,email:str,username:str,password:str)->bool:
-        return self.userDao.register(email,username,password)
+    def enregister(self,email:str,username:str,password:str)->bool:
+        return self.userDao.enregister(email,username,password)

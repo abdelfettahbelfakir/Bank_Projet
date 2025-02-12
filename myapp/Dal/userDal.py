@@ -2,7 +2,7 @@ import mysql.connector as my
 from myapp.Models.userModel import User 
 from decimal import Decimal
 from myapp.Dal.cnxDal import Database 
-import bcrypt
+
 
 class UserDao:
     def __init__(self)->None:
@@ -28,12 +28,10 @@ class UserDao:
             row = cursor.fetchone()
 
             if row is not None:
-                # Récupérer le mot de passe hashé depuis la base
-                hashed_password = row['password'].encode('utf-8')#type: ignore
-
-                # Vérifier si le mot de passe entré correspond au hash
-                if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-                    return User(
+            
+                password = row['password'] # type: ignore
+        
+                return User(
                         username=row['username'],#type: ignore
                         email=row['email'],#type: ignore
                         password=row['password'],#type: ignore
@@ -43,23 +41,20 @@ class UserDao:
         return None
     
 
-    def register(self, email: str, username: str, password: str) -> bool:
+    def enregister(self, email: str, username: str, password: str) -> bool:
         query = "INSERT INTO users (email, username, password, isadmin) VALUES (%s, %s, %s, %s);"
 
         if self.cnx is not None:
-                # Vérifier si l'email existe déjà
+                
                 cursor = self.cnx.cursor(dictionary=True)
                 cursor.execute("SELECT id FROM users WHERE email = %s;", (email,))
                 existing_user = cursor.fetchone()
                 if existing_user:
-                    print("❌ Email déjà utilisé !")
+                    print(" Email déjà utilisé !")
                     return False
 
-                # Hacher le mot de passe avant l'insertion
-                hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-                # Exécuter l'insertion
-                cursor.execute(query, (email, username, hashed_password,0))
+                
+                cursor.execute(query, (email, username, password,0))
                 self.cnx.commit()
                 return True
         return False
