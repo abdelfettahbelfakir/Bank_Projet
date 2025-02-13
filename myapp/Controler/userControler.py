@@ -1,11 +1,5 @@
-from flask import (Blueprint,
-                   request,
-                   render_template,
-                   abort,
-                   session,
-                   redirect,
-                   url_for,
-                   )
+from flask import Blueprint,request,render_template,abort,session,redirect,url_for
+                   
 
 from myapp.Services.userServices import UserManage
 
@@ -33,7 +27,7 @@ def auth():
         return render_template("authentication.html",error="Login or password incorrect")
     session["email"]=login
     if user.isadmin == 0:
-        return render_template('accounts.html')
+        return render_template('Home.html')
     listUsers = userService.listUsers()
     return render_template('Home.html',users=listUsers)
 
@@ -42,7 +36,7 @@ def registerPost():
     username = request.form.get("username")
     email = request.form.get("email")
     password = request.form.get("password")
-    ispass = userService.register(email,username,password)#type: ignore
+    ispass = userService.enregister(email,username,password)#type: ignore
     if  ispass == False:
         return render_template("register.html",error="erreur")
     return render_template("authentication.html")

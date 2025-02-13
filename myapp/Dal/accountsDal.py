@@ -9,8 +9,8 @@ class AccountDao:
 
     def create_account(self, balance: float,userID:int) -> int:
         query = """
-        INSERT INTO saving_accounts (balance, interest_rate, userid) 
-        VALUES (%s, %s, %s);
+        INSERT INTO accounts (balance,userid) 
+        VALUES (%s, %s);
         """
         lst_user = UserDao().getusers()
         if((user['id'] == userID  and user['isadmin'] != 1 for user in lst_user)):# type: ignore
@@ -102,10 +102,16 @@ class TransactionDao:
             for transaction in transactions: # type: ignore
                 transactionn = Transactions(id=transaction['id'], account_id=transaction['account_id'], transaction_type=transaction['transaction_type'], amount=transaction['amount'], transaction_date=transaction['transaction_date'])# type: ignore
                 transactionss.append(transactionn)
+                
         return transactionss       
                     
    
+
+
+
+   
             
+
 
                    
 if __name__ == "__main__":

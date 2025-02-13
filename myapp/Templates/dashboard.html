@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; }
+        .dashboard-container { max-width: 1000px; margin: 50px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        h1 { text-align: center; color: #333; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table th, .table td { padding: 12px; text-align: center; border: 1px solid #ddd; }
+        .table th { background-color: #ff6600; color: white; }
+        .table-striped tbody tr:nth-child(odd) { background-color: #f9f9f9; }
+        .table-striped tbody tr:nth-child(even) { background-color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Transaction Dashboard</h1>
+        {{ table_data | safe }}
+    </div>
+</body>
+</html>

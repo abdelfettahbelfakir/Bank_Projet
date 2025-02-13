@@ -1,8 +1,7 @@
 import mysql.connector as my
+from sqlalchemy import false
 from myapp.Models.userModel import User 
-from decimal import Decimal
 from myapp.Dal.cnxDal import Database 
-
 
 class UserDao:
     def __init__(self)->None:
@@ -35,14 +34,14 @@ class UserDao:
                         username=row['username'],#type: ignore
                         email=row['email'],#type: ignore
                         password=row['password'],#type: ignore
-                        isadmin=row['isadmin']#type: ignore
+                        isadmin=row['is_admin']#type: ignore
                     )
 
         return None
     
 
     def enregister(self, email: str, username: str, password: str) -> bool:
-        query = "INSERT INTO users (email, username, password, isadmin) VALUES (%s, %s, %s, %s);"
+        query = "INSERT INTO users (email, username, password, is_admin) VALUES (%s, %s, %s, %s);"
 
         if self.cnx is not None:
                 
@@ -54,7 +53,7 @@ class UserDao:
                     return False
 
                 
-                cursor.execute(query, (email, username, password,0))
+                cursor.execute(query, (email, username, password,False))
                 self.cnx.commit()
                 return True
         return False
@@ -62,6 +61,5 @@ class UserDao:
 if __name__ == "__main__":
     userDao = UserDao()
     lst_user = userDao.getusers()
-    print(any(user['id'] == 2 and user['isadmin'] != 1 for user in lst_user))
-    #print(userDao.register("hmizourais557@gmail.com","hamza rais","hamzay989"))
+    print(userDao.enregister("anasdon2003709@gmail.com","anassaisi","anas1234"))
     #print(userDao.auth("admin@esisa.ma", "1234"))

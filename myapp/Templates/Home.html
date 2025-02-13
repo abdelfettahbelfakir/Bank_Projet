@@ -3,78 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar Example</title>
+    <title>Home</title> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
         }
 
-        /* Sidebar styling */
-        .sidebar {
-            width: 250px;
-            height: 100%;
-            background-color: #2c3e50;
-            color: white;
-            padding-top: 20px;
-            position: fixed;
-        }
-        .sidebar h1 {
-            display: block;
-            color: gray;
-            padding: 15px 25px;
-            text-decoration: none;
-        }
-
-
-        .sidebar a {
-            display: block;
-            color: white;
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        .sidebar a:hover {
-            background-color: #34495e;
-        }
-
-        /* Main content */
-        .content {
-            margin-left: 250px;
+        .auth-container {
+            max-width: 600px;
+            margin: 50px auto;
             padding: 20px;
-            width: 100%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid #ff6600;
         }
 
-        /* Header styling */
-        .content h1 {
-            color: #2c3e50;
-            margin-bottom:15px
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
         }
 
+        .menu-button {
+            display: block;
+            margin: 10px auto;
+            padding: 15px 30px;
+            width: 80%;
+            background-color: #ff6600; /* Orange */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background-color: #e55b00; /* Darker orange */
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        a {
+            color: #ff6600; /* Orange */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dropdown-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            color: white;
+            background-color: #333; /* Black */
+            text-align: center;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ff6600; /* Orange */
+            color: white;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h1>ESISA BANK<h1>
-        <a href="/utilisateur/Home">Home</a>
-        <a href="/utilisateur/accounts">Accounts</a>
-        <a href="/utilisateur/logout">Log Out</a>
-    </div>
+    <div class="auth-container">
+        <h1>Welcome to Your Bank</h1>
+        
+        <div class="menu-container">
+            <!-- Transactions menu -->
+            <div class="dropdown">
+                <button class="menu-button">Transactions</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('bankaccount.deposit') }}">Deposit</a>
+                    <a href="{{ url_for('bankaccount.withdraw') }}">Withdraw</a>
+                    <a href="{{ url_for('bankaccount.transfer') }}">Transfer</a>
+                </div>
+            </div>
+            
+            <!-- Other buttons -->
+            <button class="menu-button" onclick="window.location.href='{{ url_for('bankaccount.get_all_accounts') }}'">View All Accounts</button>
+            <button class="menu-button" onclick="window.location.href='{{ url_for('bankaccount.get_account') }}'">My Account</button>
+            <button class="menu-button" onclick="window.location.href='{{ url_for('user.logout') }}'">Logout</button>
+            <button class="menu-button" onclick="window.location.href='{{ url_for('bankaccount.dashboard') }}'">Dashboard</button>
 
-    <!-- Main content -->
-    <div class="content">
-        <h1>Welcome to Your Dashboard</h1>
-        <p>This is the main content area. You can add your content here.</p>
+            <!-- Create Account Button -->
+            <button class="menu-button" onclick="window.location.href='{{ url_for('bankaccount.create_account') }}'">Create Account</button>
+        </div>
+        
+        <p>Click on the buttons to manage your bank account and transactions.</p>
     </div>
 
 </body>

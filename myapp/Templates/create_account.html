@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .auth-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid #ff6600;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .menu-button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            width: 80%;
+            background-color: #ff6600; /* Orange */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background-color: #e55b00; /* Darker orange */
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        a {
+            color: #ff6600; /* Orange */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <h1>Create a New Account</h1>
+        
+        <form method="POST" action="{{ url_for('bankaccount.create_account') }}">
+            <div class="form-group">
+                <label for="balance">Initial Balance</label>
+                <input type="number" id="balance" name="balance" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="userID">User ID</label>
+                <input type="number" id="userID" name="userID" required>
+            </div>
+
+            <button type="submit" class="menu-button">Create Account</button>
+        </form>
+
+        <p>After creating your account, you can manage your transactions.</p>
+        <button class="menu-button" onclick="window.location.href='{{ url_for('bankaccount.get_all_accounts') }}'">View All Accounts</button>
+        <button class="menu-button" onclick="window.location.href='{{ url_for('bankaccount.get_account') }}'">My Account</button>
+        <button class="menu-button" onclick="window.location.href='{{ url_for('user.logout') }}'">Logout</button>
+        <button class="menu-button" onclick="window.location.href='{{ url_for('bankaccount.dashboard') }}'">Dashboard</button>
+    </div>
+
+</body>
+</html>
